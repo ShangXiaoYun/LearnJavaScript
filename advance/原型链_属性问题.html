@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链_属性问题</title>
+</head>
+<body>
+    <script>
+        /*
+        1、读取对象的属性值时：会自动到原型链中查找
+        2、设置对象的   属性值时：不会查找原型链，如果当前对象中没有此属性，直接添加此属性并设置其值
+        3、方法一般定义在原型中，属性一般通过构造函数定义在对象本身上
+        */
+
+        function Fn(){
+
+        }
+        Fn.prototype.a = 2;
+        var fn1 = new Fn();
+        console.log(fn1.a);  //2
+        var fn2 = new Fn();
+        console.log(fn2.a);  //2
+        fn2.a = 'xx';
+        console.log(fn1.a,fn2.a);  //2 'xx'
+        console.log(fn2);   //fn2中有a = 'xx'，它的原型对象中有a = 2
+
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.setName = function(name){
+            this.name = name;
+        }
+        var p1 = new Person('Tom',12);
+        p1.setName('Bob');
+        console.log(p1);   //属性在对象上，方法在原型上
+
+        var p2 = new Person('cat',5);
+        console.log(p2);   //属性在对象上，方法在原型上
+        console.log(Person.prototype === p1.__proto__);  //true
+        console.log(Person.prototype === p2.__proto__);  //true
+        console.log(p1.__proto__ === p2.__proto__);  //true
+    </script>
+</body>
+</html>

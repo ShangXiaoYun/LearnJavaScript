@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数继承</title>
+</head>
+<body>
+    <script>
+        //代码复用
+        function Request(params){
+            this.get = function(params){
+                //id=1&cat=js
+                console.log(Object.keys(params));
+                let str = Object.keys(params).map(k=>`${k}=${params[k]}`).join("&");
+                let url = `https://houdunren.com?${this.url}/${str}`
+                console.log(url);
+                document.write(url + "<br/>")
+            };
+        }
+        //https://houdunren.com?article/lists/id=1&cat=js
+        function Article(){
+            this.url = "article/lists";
+            Request.apply(this);
+        }
+
+        let a = new Article();
+        console.log(a.get({id:1,cat:"js"}));
+
+        function User(){
+            this.url = "user/lists";
+            Request.call(this);
+        }
+        let user = new User();
+        user.get({id:2,role:"admin"});
+    </script>
+</body>
+</html>

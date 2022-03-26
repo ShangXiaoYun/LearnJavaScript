@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象创建模式</title>
+</head>
+<body>
+    <script>
+        /*
+        方式一：Object构造函数模式
+            套路：先创建空Object对象，再动态添加属性/方法
+            适用场景：起始时不确定对象内部数据
+            问题：语句太多
+        */
+
+        var p = new Object();
+        p.name = 'Tom';
+        p.age = 12;
+        p.setName = function(name){
+            this.name = name;
+        }
+        //测试
+        console.log(p.name,p.age);
+        p.setName('Sophie');
+        console.log(p.name,p.age);
+
+        /*
+        方式二：对象字面量模式
+            套路：使用{}创建对象，同时指定属性/方法
+            适用场景：起始时对象内部数据是确定的
+            问题：如果创建多个对象，有重复代码
+        */
+       var p2 = {
+           name:'Tom',
+           age:12,
+           setName:function(name){
+                this.name = name;
+           }
+       };
+       console.log(p2.name,p2.age);
+       p2.setName('Sophie');
+       console.log(p2.name,p2.age);
+
+       /*
+       方式三：工厂模式
+            套路：通过工厂函数动态创建对象并返回
+            适用场景：需要创建多个对象
+            问题：没有一个具体的类型，都是Object类型
+       */
+      function createPerson(name,age){   //返回一个对象的函数 ===> 工厂函数
+          var obj = {
+              name:name,
+              age:age,
+              setName:function(name){
+                  this.name = name
+              }
+          };
+          return obj;
+      }
+      var p3 = createPerson('Tom',34);
+      var p4 = createPerson('Soohie',6);
+      console.log(p3.name,p3.age,p4.name,p4.age);
+      console.log(p3,p4);
+
+      function createStudent(name,price){
+          var obj = {
+              name:name,
+              price:price
+          };
+         return obj;
+      }
+      var s = new createStudent('xxx',1000);
+      console.log(s);  //都是object类型
+
+      /*
+      方式四：自定义构造函数类型
+        套路：自定义构造函数，通过new创建对象
+        适用场景：需要创建多个类型确定的对象
+        问题：每个对象都有相同的数据，浪费内存
+        解决方法：将相同的方法放在原型对象中
+      */
+      //定义类型
+      function Person(name,age){
+        this.name = name;
+        this.age = age;
+        this.setName = function(name){
+            this.name = name;
+        }
+      } 
+
+      var p5 = new Person('SFSG',23);
+      p5.setName('Sophia');
+      console.log(p5.name,p5.age,p5);
+      console.log(p5 instanceof Person);
+
+      function Student(name,price){
+        this.name = name;
+        this.price = price;
+      }
+      var s2 = new Student('HI',23);
+      console.log(s2);
+      console.log(s2 instanceof Student);
+
+      /*
+      方式五：构造函数+原型的组合模式
+        套路：自定义构造函数，属性在函数中初始化，方法添加到原型上
+        适用场景：需要创建多个类型确定的对象
+      */
+    function Person2(name,age){
+        this.name = name;
+        this.age = age;
+    }
+    Person2.prototype.setName = function(name){
+        this.name = name;
+    }
+
+    var p6 = new Person2('Jack',45);
+    var p7 = new Person2('Diff',34);
+    console.log(p6,p7);
+    </script>
+</body>
+</html>

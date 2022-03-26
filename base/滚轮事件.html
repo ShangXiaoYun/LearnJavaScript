@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚轮事件</title>
+    <style>
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body style="height: 2000px;">
+    <div id="box1"></div>
+    <script>
+        /*
+        当鼠标滚轮向下滚动时，box1变长
+        当鼠标滚轮向上滚动时，box1变短
+        */
+        var box1 = document.getElementById("box1");
+
+        //为box1绑定一个鼠标滚轮滚动事件
+        /*
+        onwheel鼠标滚轮滚动的事件，会在滚轮滚动时触发
+        */
+        box1.onwheel = function (event) {
+            event = event || window.event;
+            //判断鼠标滚轮滚动的方向
+            //event.wheelDelta可以获取鼠标滚轮滚动的方向
+            //向上滚180   向下滚-180
+            //wheelDelta这个值我们不看大小只看正负
+            // alert(event.wheelDelta);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            // alert("滚动");
+            if (event.wheelDelta > 0) {
+                // alert("向上滚");
+                // 当鼠标滚轮向上滚动时，box1变短，clientHeight：元素的可见高度
+                box1.style.height = box1.clientHeight - 10 + "px";
+            } else {
+                // alert("向下滚");
+                // 当鼠标滚轮向下滚动时，box1变长
+                box1.style.height = box1.clientHeight + 10 + "px";
+            }
+
+            /*
+            当滚轮滚动时，如果浏览器有滚动条，滚动条会随之滚动，
+                这是浏览器的默认行为，如果不希望发生则可以取消默认行为
+            */
+            return false;
+        };
+    </script>
+</body>
+
+</html>

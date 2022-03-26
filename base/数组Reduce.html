@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组Reduce方法</title>
+</head>
+<body>
+    <script>
+        // let arr = [1,2,3,4,5];
+        // //多一个pre,表示上一次返回的结果
+        // /*
+        // 结果依次输出:
+        //     1 2
+        //     99 3
+        //     99 4
+        //     99 5
+        // */
+        // arr.reduce(function(pre,value,index,arr){
+        //     console.log(pre,value);
+        //     return 99;
+        // });
+
+        // /*
+        // 结果依次为:
+        // 0 1
+        // 99 2
+        // 99 3
+        // 99 4
+        // 99 5
+        // */
+        // arr.reduce(function(pre,value,index,arr){
+        //     console.log(pre,value);
+        //     return 99;
+        // },0);
+
+        //查看一个元素在数组中的个数
+        // function countArrayELem(array, elem) {
+        //     return array.reduce(function(total,cur){
+        //         total += item === cur ? 1:0;
+        //         return total;
+        //     },0);
+        // }
+
+        // let numbers = [1, 2, 3, 1, 5];
+        // console.log(countArrayELem(numbers, 1)); //2
+
+        //获取数组的最大值
+        let arr = [1,2,3,5,4];
+        function arrayMax(array){
+            return array.reduce(function(pre,cur){
+                return pre>cur?pre:cur;
+            })
+        }
+        console.log(arrayMax(arr));
+    </script>
+</body>
+</html>

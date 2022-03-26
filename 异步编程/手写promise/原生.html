@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="HD.js"></script>
+    <title>原生的</title>
+</head>
+<body>
+    <script>
+        // new Promise((resolve,reject) => {
+        //     setTimeout(()=>{
+        //         // resolve("解决");
+        //         console.log("sophie2");
+        //         reject("拒绝");
+        //     },1000);
+        // }).then()
+        //     .then(value => {
+        //         console.log(value);
+        //         return "小猫";
+        //     },reason => {
+        //         console.log(reason);
+        //         return "下雨天";
+        //     }).then(value =>{
+        //         console.log(value);
+        //     },reason => {
+        //         console.log(reason);
+        //     });
+        // console.log("Sophie");
+
+        // new Promise((resolve,reject) => {
+        //     resolve("解决");
+        // }).then(value =>{
+        //     return new Promise((resolve,reject)=>{
+        //         resolve("sophie");
+        //     });
+        // }).then(value => {
+        //     console.log(value);
+        // });
+
+        // let promise = new Promise((resolve,reject) => {
+        //     resolve("解决");
+        // });
+        // let p = promise.then(value => {
+        //     console.log('小猫');
+        //     console.log(value);
+        //     return p;
+        // });
+        // console.log(p);
+
+        //原生Promise.resolve
+        // Promise.resolve('小猫').then(value => {
+        //     console.log(value);
+        // });
+
+        // let p = new Promise((resolve,reject) => {
+        //     resolve("成功")
+        // })
+        // Promise.resolve(p).then(value => {
+        //     console.log(value);
+        // });
+
+        // // 原生Promise.reject
+        // Promise.reject('下雨天').then(null,reason => {
+        //     console.log(reason);
+        // });
+
+        //原生Promise.all
+        let p1 = new Promise(resolve =>{
+            resolve("sophie");
+        });
+        let p2 = new Promise((resolve,reject)=>{
+            // resolve("小鱼");
+            reject("拒绝");
+        });
+        Promise.all([p1,p2]).then(value =>{
+            console.log(value);
+        },reason =>{
+            console.log(reason);
+        });
+
+        //原生Promise.race测试
+        // let p1 = new Promise(resolve =>{
+        //     setTimeout(()=>{
+        //         resolve("sophie");
+        //     },2000);
+        // });
+        // let p2 = new Promise((resolve,reject)=>{
+        //     setTimeout(()=>{
+        //         // resolve("小鱼");
+        //         reject("拒绝");
+        //     },1000)
+        // });
+        // Promise.race([p1,p2]).then(value =>{
+        //     console.log(value);
+        // },reason =>{
+        //     console.log(reason);
+        // });
+    </script>
+</body>
+</html>

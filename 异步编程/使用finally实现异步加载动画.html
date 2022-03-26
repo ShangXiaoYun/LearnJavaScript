@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用finally实现异步加载动画</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">loading...</div>
+    <script>
+        ajax(`http://localhost:8888/php/user.php?name=后盾人`)
+            .then(value => {
+                console.log(value);
+            })
+            .finally(()=>{
+                loading.style.display = "none";
+            });
+        //finally都会执行
+        // const promise = new Promise((resolve,reject)=>{
+        //     // resolve("sophie");
+        //     reject("rejected");
+        // }).then(msg =>{
+        //     console.log(msg);
+        // }).catch((error)=>{
+        //     console.log(error);
+        // })
+        // .finally(()=>{
+        //     console.log('永远会执行');
+        // });
+    </script>
+</body>
+</html>

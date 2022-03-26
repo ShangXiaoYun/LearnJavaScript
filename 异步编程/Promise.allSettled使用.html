@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.allSettled</title>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+    <script>
+        //Promise.allSettled返回更宽泛，无论是成功状态还是拒绝状态，都如实返回.
+        // const p1 = new Promise((resolve,reject) => {
+        //     resolve("resolved")
+        // });
+        // const p2 = new Promise((resolve,reject) => {
+        //     resolve("resolved");
+        // })
+        // Promise.allSettled([p1,p2]).then(results => {
+        //     console.log(results);
+        // });
+
+        //用户不存在也没有关系,后台找不到用户报错,但是前台可以继续执行代码
+        let promises = ['后盾人','李四'].map(name => {
+            return ajax(`http://localhost:8888/php/userphp?name=${name}`);
+        });
+        Promise.allSettled(promises).then(values => {
+            let users = values.filter(user => {
+                return user.status === "fulfilled";
+            })
+            console.log(users);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async 和 await多种声明方式</title>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+    <script>
+        //函数声明
+        // async function get(name){
+        //     return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+        // }
+
+        //函数表达式声明
+        // let get = async function(name){
+        //     return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+        // }
+
+        // get("后盾人").then(user=>{
+        //     console.log(user);
+        // });
+
+        //使用对象调用方法
+        // let hd = {
+        //     async get(name){
+        //         return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+        //     }
+        // }
+        // hd.get("后盾人").then(user=>{
+        //     console.log(user);
+        // });
+
+
+        //还可以封装成类
+        class User{
+            async get(name){
+                return await ajax(`http://localhost:8888/php/user.php?name=${name}`);
+            }
+        }
+        new User().get("后盾人").then(user => {
+            console.log(user);
+        });
+    </script>
+</body>
+</html>

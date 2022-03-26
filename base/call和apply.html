@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call和apply</title>
+</head>
+<body>
+    <button>Sophie</button>
+    <button>Sophie2</button>
+    <script>
+        //call apply
+        // let lisi = {
+        //     name:"李四"
+        // };
+        // let wangwu = {
+        //     name:"王五"
+        // };
+        // function User(web,url){
+        //     console.log(web + url + this.name);
+        // }
+        // //立刻执行函数，只是传多个参数时的形式不同
+        // User.call(lisi,"sophie","Sophie");
+        // User.apply(lisi,["sophie","Sophie"]);
+
+
+        // function show(){
+        //     alert(this.innerHTML);
+        // }
+        // let buttons = document.querySelectorAll("button");
+        // for(let i = 0; i < buttons.length; i++){
+        //     buttons[i].addEventListener("click",(event)=>{
+        //         // show.call(event.target);
+        //         show.apply(event.target);
+        //     });
+        // }
+
+
+        //获取数组最大值
+        console.log(Math.max(1,2,3,4,5));
+        let arr = [1,2,3,4,5];
+        console.log(Math.max(...arr)); //将arr展开
+        console.log(Math.max.apply(Math,arr));  
+        console.log(Math.max.apply(null,arr));  
+
+    </script>
+</body>
+</html>

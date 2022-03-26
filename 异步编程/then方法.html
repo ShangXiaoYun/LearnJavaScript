@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>then方法</title>
+</head>
+<body>
+    <script>
+        new Promise((resolve,reject)=>{
+            // resolve("一瓶可乐");
+            reject("涨价了买不起");
+        }).then(
+            value=>{
+                console.log(value);
+            },
+            reason => {
+                console.log(reason);
+            }
+        );
+
+        //如果只处理成功的代码，可以把拒绝的代码删掉
+        new Promise((resolve,reject)=>{
+            resolve("一瓶可乐");
+        }).then(
+            value=>{
+                console.log(value);
+            }    
+        );
+        //如果只处理拒绝的代码，把成功的代码置为null
+        new Promise((resolve,reject)=>{
+            reject("涨价了买不起");
+        }).then(
+            null,
+            reason => {
+                console.log(reason);
+            }
+        );
+    </script>
+</body>
+</html>

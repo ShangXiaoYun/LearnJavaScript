@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Workers</title>
+    <script src="./worker.js"></script>
+</head>
+<body>
+    <input type="text" placeholder="数值" id="number">
+    <button id="btn">计算</button>
+    <script>
+        /*
+        1、H5规范提供了js分线程的实现，取名为Web Workers
+        2、相关API
+            Worker:构造函数，加载分线程执行的js文件
+            Worker.prototype.onmessage:用于接受另一个线程的回调函数
+            Worker.prototype.postMessage：向另一个线程发送消息
+        3、不足
+            Workers内代码不能操作DOM（更新UI）
+            不能跨域加载JS
+            不是每个浏览器都支持这个新特性
+        */
+        //1 1 2 3 5 8    f(n) = f(n - 1) + f(n - 2)
+        //原始
+        // function fibonacci(n){
+        //     return n <= 2? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+        // }
+        // // console.log(fibonacci(6));
+        // var input = document.getElementById('number');
+        // var btn = document.getElementById('btn');
+        // btn.onclick = function(){
+        //     var number = input.value;
+        //     var result = fibonacci(number);
+        //     alert(result);
+        // };
+
+
+        var input = document.getElementById('number');
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){
+            var number = input.value;
+            //将number传给分线程
+            //创建一个Worker对象
+            var worker = new Worker("worker.js");
+            //绑定接收消息的监听
+            worker.onmessage = function(event){
+                console.log('主线程接收分线程返回的数据：'+ event.data);
+                alert(event.data);
+            };
+            //向分线程发送消息
+            worker.postMessage(number);
+            console.log('主线程向分线程发送数据：'+ number);
+        };
+        // console.log(this);  //window
+
+        /*
+        注：运行会报错：Failed to construct 'Worker'
+        原因：使用chrome浏览器不支持本地分线程代码。
+        解决方案：更换浏览器或者将worker.js通过tomcat发布。
+        */
+    </script>
+</body>
+</html>

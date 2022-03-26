@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记录增删改</title>
+</head>
+
+<body>
+    <div id="content">
+        <table border="1px" id="employeeTable">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Salary</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr>
+                <td>Tom</td>
+                <td>tom@tom.com</td>
+                <td>5000</td>
+                <td><a href="javascript:;">Delete</a></td>
+            </tr>
+            <tr>
+                <td>Jerry</td>
+                <td>jerry@sohu.com</td>
+                <td>8000</td>
+                <td><a href="javascript:;">Delete</a></td>
+            </tr>
+            <tr>
+                <td>Bob</td>
+                <td>bob@tom.com</td>
+                <td>10000</td>
+                <td><a href="javascript:;">Delete</a></td>
+            </tr>
+        </table>
+        <h4>添加新员工</h4>
+        <table>
+            <tr>
+                <td class="word">name:</td>
+                <td class="inp">
+                    <input type="text" id="empName">
+                </td>
+            </tr>
+            <tr>
+                <td class="word">email:</td>
+                <td class="inp">
+                    <input type="text" id="email">
+                </td>
+            </tr>
+            <tr>
+                <td class="word">salary:</td>
+                <td class="inp">
+                    <input type="text" id="salary">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button id="addEmpButton">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+
+        function delA() {
+            /*
+            点击超链接删除超链接所在的那一行
+            这里我们点击哪个超链接this就是谁
+            获得当前tr
+            */
+            var tr = this.parentNode.parentNode;
+            //获取要删除的员工的名字
+            var name = tr.getElementsByTagName("td")[0].innerHTML;
+            //删除之前弹出提示框  
+            /*
+            comfirm()用于弹出一个带有确认和取消按钮的提示框
+                需要一个字符串作为参数，该字符串将会作为提示文字显示出来
+                如果用户点击确认会返回true，如果用户点击取消则会返回false
+            */
+            var flag = confirm(`确认${name}删除吗？`);
+            if (flag) tr.parentNode.removeChild(tr);
+            /*
+            点击超链接以后，超链接会跳转页面，默认会跳转
+            但是此时我们不希望出现默认行为，可以通过在响应函数的最后return false来取消默认行为
+            或者标签中写javascript:;
+            */
+            return false
+        };
+
+        /*
+        点击超链接以后，删除员工信息
+        */
+        //获取所有的超链接
+        var allA = document.getElementsByTagName("a");
+        //为每个超链接绑定单击事件
+        for (var i = 0; i < allA.length; i++) {
+            allA[i].onclick = delA;
+        }
+
+        /*
+        点击提交按钮，添加员工信息
+        */
+        //获取按钮，并绑定单击响应事件
+        var btn = document.getElementById("addEmpButton");
+
+        btn.onclick = function () {
+            //获取输入员工的信息
+            var name = document.getElementById("empName").value;
+            var email = document.getElementById("email").value;
+            var salary = document.getElementById("salary").value;
+            // alert(`${name},${email},${salary}`);
+            /*
+            需要将获取到的信息保存到tr中
+
+            */
+            //创建一个tr
+            var tr = document.createElement("tr");
+
+            //设置tr中的内容
+            tr.innerHTML = "<td>" + name + "</td>" +
+                "<td>" + email + "</td>" +
+                "<td>" + salary + "</td>" +
+                "<td><a href='javascript:;'>Delete</a></td>";
+
+            //获取a元素，并为其绑定单击响应函数
+            var a = tr.getElementsByTagName("a")[0];
+            a.onclick = delA;
+
+            //将tr添加到table中
+            var employeeTable = document.getElementById("employeeTable");
+
+            //获取employeeTable中的tbody
+            var tbody = employeeTable.getElementsByTagName("tbody")[0];
+
+            tbody.appendChild(tr);
+        };
+    </script>
+</body>
+
+</html>

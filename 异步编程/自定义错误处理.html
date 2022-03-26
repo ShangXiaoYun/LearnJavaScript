@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义错误处理</title>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+    <script>
+        // ajax(`http://localhost:8888/php/user.php?name=后盾人`).then(value => {
+        //     console.log(value);
+        // }).catch(error => {
+        //     console.log(error.message);
+        // })
+        ajax(`http://localhost:8888/php/user.php?name=后盾人`).then(value => {
+            console.log(value);
+        }).catch(error => {
+            //对错误进行定制
+            if(error instanceof ParamsError){
+                console.log(error.message);
+            }
+            if(error instanceof HttpError){
+                alert(error.message);
+            }
+            console.log(error);
+        })
+
+
+    </script>
+</body>
+</html>

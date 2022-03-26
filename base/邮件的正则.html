@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邮件的正则</title>
+</head>
+<body>
+    <script>
+        /*
+        电子邮件
+            hello.nihao@abc.com.cn
+
+            hello     任意字母、数字、下划线 
+            .nihao   .任意字母、数字、下划线(可有可无)
+            @
+            abc       任意字母、数字（长度不限）
+            .com     .任意字母（2-5位）
+            .cn      .任意字母（2-5位）
+
+            \w{3,}  (\.\w+)*   @  [A-z0-9]+    (\.[A-z]{2,5} ){1,2}  
+        */
+        var emailReg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+        var email = "abc@abc.com";
+        console.log(emailReg.test(email));  //true
+    </script>
+</body>
+</html>

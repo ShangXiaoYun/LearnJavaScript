@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据_变量_内存</title>
+</head>
+<body>
+    <script>
+        /*
+        1、什么是数据？
+            存储在内存中代表特定信息的东西 本质上是0101..
+            数据的特点：可传递、可运算
+        2、什么是内存？
+            内存条通电后产生的可存储数据的空间（临时的）
+            内存产生和死亡：内存条（电路板）==> 通电 ==> 
+            产生内存空间 ==>存储数据 ==>处理数据 ==>断电 ==>内存空间和数据都消失
+            一块小内存的2个数据：
+                内部存储的数据  /  地址值
+            内存分类：
+                栈：全局变量/局部变量
+                堆：对象
+        3、什么是变量？
+            可变化的量，由变量名和变量值组成，每个变量都对应一块小内存
+            变量名用来查找对应的内存，变量值就是内存中保存的数据
+        4、内存，数据，变量三者之间的关系
+            内存用来存储数据的空间，变量是内存的表示
+        */
+
+        /*
+        问题： var a = xxx ，a内存中保存的是什么？
+            xxx是基本数据，保存的就是这个数据
+            xxx是对象，保存的是对象的地址值
+            xxx是一个变量，保存的是xxx的内存内容（可能是基本数据，可能是地址值）
+        */
+
+        /*
+        关于引用变量赋值的问题
+            2个引用变量指向同一个对象，通过一个变量修改对象内部数据，另一个变量看到的是修改之后的数据
+            2个引用变量指向同一个对象，让其中一个引用变量指向另一个对象，另一个引用变量依然指向前一个变量
+        */
+    //    var a = 3;
+    //     a = function(){}
+    //     console.log(a);   //f(){}
+    //     var b = 'abc';
+    //     a = b;
+    //     console.log(a);  //'abc'
+    //     b = {};
+    //     a = b;
+    //     console.log(a);  //{}
+
+    //     var obj1 = {name:'Sophie'};
+    //     var obj2 = obj1;
+    //     obj1.name = 'Jack';
+    //     console.log(obj2.name);  //'Jack'
+    //     function f1(obj){
+    //         obj.name = "Bob";
+    //     }
+    //     f1(obj1);
+    //     console.log(obj2.name);  //'Bob'
+
+        var obj3 = {age:18};
+        var obj4 = obj3;
+        obj3 = {name:'SSS',age:10};
+        obj4.age = 15;
+        console.log(obj4.age,obj3.name,obj3.age);  //15 'SSS' 10
+        function fn2(obj){
+            obj = {age:17};   //obj指向了新的对象，但是obj3没有变。
+        }
+        fn2(obj3);  //这里只是将obj3传给obj,obj指向obj3表示的对象。
+        console.log(obj3.age);  //10 
+
+
+        /*
+        问题：在js调用函数时传递变量参数时，是值传递还是引用传递？
+            理解1：都是值（基本/地址值）传递
+            理解2：可能是值传递，也可能是引用传递（地址值）
+        */
+
+        var a = 3;
+        function fn(a){
+            //形参这里只是赋值，不是全局变量。函数也没有返回值
+            a = a + 1;
+        }
+        fn(a);
+        console.log(a);  //3  
+
+        function fn2(obj){
+            console.log(obj.name);
+        }
+        var obj = {name:'Sophie'};
+        fn2(obj); //'Sophie'
+
+        /*
+        问题：JS引擎如何管理内存
+        1、内存生命周期
+            分配小内存空间，得到它的使用权
+            存储数据，可以反复进行操作
+            释放小内存空间
+        2、释放内存
+            局部变量：函数执行完自动释放
+            对象：成为垃圾对象，然后被垃圾回收器回收
+            全局变量：不会释放，以供后续使用
+        */
+        var a = 3;
+        var obj = {};
+        obj = undefined;
+        function fn(){
+            var b = {}
+        }
+        fn()  //b是自动释放，b所指向的对象是在后面的某个时刻由垃圾回收器回收
+    </script>
+</body>
+</html>

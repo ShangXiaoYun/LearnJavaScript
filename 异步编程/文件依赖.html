@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件依赖</title>
+</head>
+<body>
+    <script>
+        function load(src,resolve){
+            let script = document.createElement('script');
+            script.src = src;
+            script.onload = resolve;
+            document.body.appendChild(script);
+        }
+        //回调地狱
+        load("js/sophie.js",()=>{
+            sophie();
+            load("js/sophie2.js",()=>{
+                sophie2();
+            });
+        });
+        
+        console.log(24546);
+    </script>
+</body>
+</html>

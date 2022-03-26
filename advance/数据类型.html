@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据类型</title>
+</head>
+<body>
+    <script>
+        /*
+        1、数据类型
+            基本数据类型
+                String：任意字符串
+                Numner: 任意的数字
+                boolean:true/false
+                undefined: undefined
+                null: null
+                Symbol 
+
+            引用数据类型：
+                Object:任意对象
+                Function和Array也是对象
+                Function:一种特别的对象（可以执行）
+                Array:一种特别的对象（数值下标，内部数据是有序的）
+        2、判断
+            typeof 返回数据类型的字符串表达
+                可以判断undefined /数值/字符串/布尔值
+            instanceof 判断对象的具体类型
+            ===
+                可以判断undefined//null
+        */
+
+        var a;
+        console.log(a,typeof a, a=== undefined); //undefined  'undefined'  true
+        console.log(undefined === 'undefined');  //false
+
+        a = 3;
+        console.log(typeof a === 'number');  //true
+        a = 'Sophie';  
+        console.log(typeof a === 'string');  //true
+        a = true;
+        console.log(typeof a === 'boolean'); //true
+        a = null;
+        console.log(typeof a, a===null);  //'object' true
+
+        var b1 = {
+            b2:[1,'aac',console.log],
+            b3:function(){
+                console.log('b3');
+            }
+        }
+        console.log(b1 instanceof Object);  //true
+        console.log(b1.b2 instanceof Array, b1.b2 instanceof Object);   //true true
+        console.log(b1.b3 instanceof Function, b1.b3 instanceof Object);   //true true
+
+        console.log(typeof b1.b3 === 'function');  //true
+        console.log(typeof b1.b2[2] === 'function');  //true
+
+        /*
+        实例：实例对象
+        类型：类型对象
+        */
+       function Person(name,age){  //构造函数  类型
+            this.name = name;
+            this.age = age;
+       }
+       var p = new Person('Sophie',18);   //根据类型创建的实例对象
+
+       /*
+       1、undefined和null的区别？
+        undefined代表定义未赋值,null定义并赋值了，只是值为null
+        
+       2、什么时候给变量赋值为null?
+        （1）初始赋值为null，表明将要赋值为对象
+        （2）结束时，让对象成为垃圾对象，被垃圾回收器回收
+
+       3、严格区分变量类型与数据类型
+        数据的类型:基本类型与对象类型
+        变量的类型（变量内存值的类型）
+            基本类型：保存的就是基本类型的数据
+            引用类型：保存的是地址值
+       */
+
+       var a;
+       console.log(a);  //undefined
+       a = null;
+       console.log(a);  //null
+
+       //起始
+       var b = null;  //初始赋值为null，表明将要赋值为对象
+       //确定对象就赋值
+       b = ['Sophie',24];
+       //最后
+       b = null;  //让b指向的对象成为垃圾对象（被垃圾回收器回收）
+    </script>
+</body>
+</html>

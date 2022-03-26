@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.race后台请求超时处理</title>
+</head>
+<body>
+    <script>
+        //Promise.race可以发生多个promise,但是只取快的一个
+        // const sophie = new Promise((resolve,reject) => {
+        //     setTimeout(()=>{
+        //         resolve("第一个Promise")
+        //     },1000);
+        // });
+        // const sophie2 = new Promise((resolve,reject) => {
+        //     setTimeout(()=>{
+        //         resolve("第二个Promise")
+        //     },2000);
+        // });
+        // Promise.race([sophie,sophie2])
+        //     .then(
+        //         results => {
+        //             console.log(results);
+        //         }
+        //     ).catch(error => {
+        //         console.log(error);
+        //     })
+        
+        //限制向后台的请求时间,超出2s就算超时,就不请求了
+        // let promises = [
+        //     ajax(`http://localhost:8888/php/user.php?name=后盾人`),
+        //     new Promise((resolve,reject) => {
+        //         setTimeout(()=>{
+        //             reject("请求超时");
+        //         },2000);
+        //     })
+        // ];
+        // Promise.race(promises).then(value=>{
+        //     console.log(value);
+        // }).catch(error => {
+        //     console.log(error);
+        // })
+
+        //封装成函数
+        function query(url,delay=2000){
+            let promises = [
+                //http://localhost:8888/php/user.php?name=后盾人
+                ajax(url),
+                new Promise((resolve,reject) => {
+                    setTimeout(()=>{
+                        reject("请求超时");
+                    },delay);
+                })
+            ];
+            return Promise.race(promises);
+        }
+
+        query(`http://localhost:8888/php/user.php?name=后盾人`,1000).then(user => {
+            console.log(value);
+        }).catch(error => {
+            console.log(error);
+        })
+    </script>
+</body>
+</html>

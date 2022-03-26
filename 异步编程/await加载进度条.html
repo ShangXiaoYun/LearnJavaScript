@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>await加载进度条</title>
+    <script src="js/ajax.js"></script>
+    <style>
+        div{
+            height: 50px;
+            width: 0px;
+            background-color: purple;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading"></div>
+    <script>
+        function query(name){
+            return ajax(`http://localhost:8888/php/user.php?name=${name}`);
+        }
+        async function loadUser(users){
+            for(let i = 0; i < users.length; i++){
+                let user = await query(users[i]);
+                let progress = (i + 1) / users.length * 100;
+                loading.style.wdith = progress + "%";
+                loading.innerHTML = Math.round(progress) + "%";
+            }
+        }
+        query(["后盾人","向军","李四"]);
+    </script>
+</body>
+</html>

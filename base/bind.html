@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bind</title>
+</head>
+<body>
+    <button>Sophie</button>
+    <script>
+        //bind call 调用函数，改变this指向
+        function show(){
+            console.log(this.name);
+        }
+        show.call({name:'sophie'});  //立即执行
+        let fun = show.bind({name:'sophie'});  //返回的是一个函数，需要调用才能执行
+        console.log(fun);
+        fun();
+
+        let a = function(){
+
+        };
+        let b = a;
+        console.log(a instanceof Object);  //true
+        console.log(a===b);  //true
+
+        //bind由于不立刻执行，因此有两个地方可以传参，第一是bind后面，第二是调用新的函数的时候
+        b = a.bind();  //相当于重新赋值一份函数，指向的两个不同的对象
+        console.log(a===b);  //false
+
+        function hd(a,b){
+            return this.f + a + b;
+        }
+        console.log(hd.call({f:1},1,1));
+        let func = hd.bind({f:1},1,2);
+        func(3,4);  //这里3，4没用上，因为前面的参数刚好够用
+
+        document.querySelector('button').addEventListener('click',function(event){
+            document.write(this.url + event.target.innerHTML);
+        }.bind({url:'houdunren.com'}));
+    </script>
+</body>
+</html>

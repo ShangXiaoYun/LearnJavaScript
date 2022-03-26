@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宏任务与微任务的执行顺序</title>
+</head>
+<body>
+    <script>
+        /*
+        结果：
+        promise 
+        sophie
+        then 
+        setTimeout
+        */
+        //加入宏任务队列
+        setTimeout(()=>{
+            console.log('setTimeout');
+        },0);
+        //加入微任务队列
+        //注意Promise代码内部也是同步执行的，与主线程同步执行代码同等级
+        new Promise(resolve=>{
+            resolve(); //调用resolve()就能通知then，加入微任务队列中
+            console.log('promise');
+        }).then(value=>{
+            console.log('then');
+        })
+        console.log('sophie');
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async和await语法糖</title>
+</head>
+<body>
+    <script>
+        // new Promise(resolve => {
+        //     console.log("Sophie");
+        //     resolve("Sophie2");
+        // }).then(v=>{
+        //     console.log(v);
+        // }) 
+
+        //async 与 new Promise()类似
+        //await 与 then 类似
+        async function hd(){
+            //await返回一个值
+            // let name = await "Sophie";
+            // console.log(name);
+
+            //await返回一个Promise的情况
+            let name = await new Promise(resolve => {
+                setTimeout(()=>{
+                    resolve("Sophie");
+                },2000);
+            })
+            console.log(name);
+            let site = await new Promise(resolve => {
+                setTimeout(()=>{
+                    resolve("Sophie2");
+                },2000);
+            })
+            console.log(site);
+            // return new Promise(resolve => {
+            //    setTimeout(()=>{
+            //     console.log('Sophie');
+            //     resolve("Sophie2");
+            //    },2000);
+            // });
+        }
+        // console.log(hd());  //返回一个Pormise对象，状态是已解决（fulfilled）
+        // hd().then(v=>{
+        //     console.log(v);
+        // });
+        hd();
+    </script>
+</body>
+</html>

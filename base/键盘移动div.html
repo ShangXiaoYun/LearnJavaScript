@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘移动div</title>
+    <style>
+        #box1 {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div id="box1"></div>
+    <script>
+        //使div可以根据不同的方向键向不容的方向移动
+        /*
+        按左键，div向左移
+        按右键，div向右移
+        */
+        var box1 = document.getElementById("box1");
+        //为document绑定一个键盘按下的事件
+        document.onkeydown = function (event) {
+            event = event || window.event;
+            // console.log(event.keyCode);
+            /*
+            37  左
+            38  上
+            39  右
+            40  下
+            */
+            switch (event.keyCode) {
+                case 37:
+                    // alert("向左"); left值减小
+                    box1.style.left = box1.offsetLeft - 10 + "px";
+                    break;
+                case 38:
+                    // alert("向上");
+                    box1.style.top = box1.offsetTop - 10 + "px";
+                    break;
+                case 39:
+                    // alert("向右");
+                    box1.style.left = box1.offsetLeft + 10 + "px";
+                    break;
+                case 40:
+                    // alert("向下");
+                    box1.style.top = box1.offsetTop + 10 + "px";
+
+                    break;
+            }
+        };
+    </script>
+</body>
+
+</html>
