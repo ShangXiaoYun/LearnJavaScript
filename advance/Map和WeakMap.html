@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。
+    const map = new Map();
+    const k1 = ['a'];
+    const k2 = ['a'];
+
+    //set方法返回的是当前的Map对象，因此可以采用链式写法
+    map.set(k1,111).set(k2,111);
+
+    console.log(map.get(k1));
+    console.log(map.get(k2));
+
+    /*
+    size属性
+    Map.prototype.set(key, value)
+    Map.prototype.get(key)  如果找不到key，返回undefined
+    Map.prototype.has(key) 返回布尔值
+    Map.prototype.delete(key) 返回布尔值 表示删除成功、失败
+    Map.prototype.clear()  clear方法清除所有成员，没有返回值。
+
+    遍历方法
+    Map.prototype.keys()：返回键名的遍历器。
+    Map.prototype.values()：返回键值的遍历器。
+    Map.prototype.entries()：返回所有成员的遍历器。
+    Map.prototype.forEach()：遍历 Map 的所有成员。
+    */
+  </script>
+</body>
+</html>
